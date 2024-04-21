@@ -98,12 +98,16 @@ func main() {
 	r.GET("/cache/:key", func(c *gin.Context) {
 		key := c.Param("key")
 		if value, ok := cache.Get(key); ok {
-			c.JSON(200, gin.H{"value": value})
+			c.JSON(200, gin.H{
+			"value": value,
+			"expiration": cache.cache[key].expiration, // Include the expiration time in the response
+		})
 		} else {
 			c.JSON(404, gin.H{"error": "key not found"})
 		}
 	})
 
+	
 	r.POST("/cache/:key", func(c *gin.Context) {
 		key := c.Param("key")
 		var payload struct {

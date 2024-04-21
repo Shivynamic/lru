@@ -20,3 +20,6 @@ You are expected to run two terminals, one for react server, the other for go
 
 1. Run "go run backend/main.go"
 
+
+
+This will provide you the interface where you can create your own LRU-cache
