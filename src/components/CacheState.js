@@ -30,10 +30,31 @@ const CacheState = () => {
     return differenceInSeconds;
   };
 
+  // return (
+  //   <div>
+  //     <h2>Cache State</h2>
+  //     <button onClick={handleRefresh}>Refresh</button> {/* Refresh button */}
+  //     {cacheState ? (
+  //       <div>
+  //         {cacheState.map((entry) => (
+  //           <div key={entry.key}>
+  //             <p>
+  //               <strong>Key:</strong> {entry.key}, 
+  //               <strong>Value:</strong> {entry.value},
+  //               <strong>Expiring in:</strong> T{getTimeDifference(entry.expiration)} seconds
+  //             </p>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     ) : (
+  //       <p>Loading cache state...</p>
+  //     )}
+  //   </div>
+  // );
   return (
     <div>
-      <h2>Cache State</h2>
-      <button onClick={handleRefresh}>Refresh</button> {/* Refresh button */}
+      <h2 className='py-4'>Cache State</h2>
+      <button className="btn btn-primary" onClick={handleRefresh}>Refresh</button> 
       {cacheState ? (
         <div>
           {cacheState.map((entry) => (
@@ -51,6 +72,7 @@ const CacheState = () => {
       )}
     </div>
   );
+  
 };
 
 export default CacheState;

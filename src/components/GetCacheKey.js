@@ -65,14 +65,15 @@ const GetCacheKey = () => {
     }
   };
 
+
   return (
     <div>
       <h2>Get Cache Key</h2>
-      <label>
+      <label className="px-3 py-2">
         Key:
         <input type="text" value={key} onChange={(e) => setKey(e.target.value)} />
-      </label>
-      <button onClick={handleGetCache} disabled={isLoading}>
+        </label>
+      <button className="btn btn-primary " onClick={handleGetCache} disabled={isLoading}>
         {isLoading ? 'Fetching...' : 'Get Value'}
       </button>
       {data && (
@@ -80,11 +81,12 @@ const GetCacheKey = () => {
           <h3>Value</h3>
           <p>{data.value}</p>
           <h3>Expires at</h3>
-          <p>{data.expiration}</p> {/* Assuming expiration is in a readable format */}
+          <p>{data.expiration}</p> 
         </div>
       )}
     </div>
   );
+  
 };
 
 export default GetCacheKey;

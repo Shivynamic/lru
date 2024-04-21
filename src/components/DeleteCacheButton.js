@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { deleteCache } from '../api/api';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+
 
 const DeleteCacheButton = () => {
   const [id, setId] = useState('');
@@ -19,13 +21,18 @@ const DeleteCacheButton = () => {
   return (
     <div>
       <h2>Delete Cache</h2>
-      <label>
+      <label className="px-4 py-4">
         ID:
         <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
       </label>
-      <button onClick={handleDelete}>Delete Cache</button>
+          <button className="btn btn-danger" type="button" onClick={handleDelete}>
+            Delete Cache
+          </button>
     </div>
   );
+  
 };
 
 export default DeleteCacheButton;
+
+
