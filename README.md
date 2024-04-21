@@ -10,6 +10,8 @@ if it is not please install react and go [do not forget to set GOPATH if you are
 
 
 You are expected to run two terminals, one for react server, the other for go
+#
+
 React runs on localhost:3000
 Go server runs on localhost:8000
 
