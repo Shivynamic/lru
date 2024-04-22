@@ -9,8 +9,9 @@ import (
 )
 
 type cacheEntry struct {
-	value      interface{}
-	expiration time.Time
+	value              interface{}
+	originalExpiration int64 // Store the original expiration time in seconds
+	expiration         time.Time
 }
 
 type LRUCache struct {
@@ -44,16 +45,19 @@ func (c *LRUCache) Get(key string) (interface{}, bool) {
 
 	return entry.value, true
 }
-
 func (c *LRUCache) Set(key string, value interface{}, expiration time.Duration) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
 	c.evict()
 
+	// Convert expiration duration to seconds
+	expirationSeconds := expiration.Seconds()
+
 	c.cache[key] = &cacheEntry{
-		value:      value,
-		expiration: time.Now().Add(expiration),
+		value:              value,
+		originalExpiration: int64(expirationSeconds), // Store the original expiration time in seconds
+		expiration:         time.Now().Add(expiration),
 	}
 	c.addToOrder(key)
 }
@@ -98,16 +102,17 @@ func main() {
 	r.GET("/cache/:key", func(c *gin.Context) {
 		key := c.Param("key")
 		if value, ok := cache.Get(key); ok {
+			entry := cache.cache[key]
 			c.JSON(200, gin.H{
-			"value": value,
-			"expiration": cache.cache[key].expiration, // Include the expiration time in the response
-		})
+				"value":                       value,
+				"expiration":                  entry.expiration,
+				"original_expiration_seconds": entry.originalExpiration, 
+			})
 		} else {
 			c.JSON(404, gin.H{"error": "key not found"})
 		}
 	})
 
-	
 	r.POST("/cache/:key", func(c *gin.Context) {
 		key := c.Param("key")
 		var payload struct {
