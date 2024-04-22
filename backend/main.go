@@ -28,23 +28,37 @@ func NewLRUCache(capacity int) *LRUCache {
 	}
 }
 
-func (c *LRUCache) Get(key string) (interface{}, bool) {
+func (c *LRUCache) Get(key string) (interface{}, time.Time, bool) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
 	entry, ok := c.cache[key]
 	if !ok {
-		return nil, false
+		return nil, time.Time{}, false
+	}
+
+	// Calculate remaining expiration time
+	remainingExpiration := entry.expiration.Sub(time.Now())
+
+	// Update expiration time if remaining time is positive
+	if remainingExpiration > 0 {
+		// Update expiration time by adding original expiration seconds
+		entry.expiration = entry.expiration.Add(time.Duration(entry.originalExpiration) * time.Second)
 	}
 
 	if time.Now().After(entry.expiration) {
 		delete(c.cache, key)
 		c.removeFromOrder(key)
-		return nil, false
+		return nil, time.Time{}, false
 	}
 
-	return entry.value, true
+	// Format expiration time to show only YYYY-MM-DD HH:MM:SS
+	// formattedExpiration := entry.expiration.Format("2006-01-02 15:04:05")
+
+	return entry.value, entry.expiration, true
 }
+
+
 func (c *LRUCache) Set(key string, value interface{}, expiration time.Duration) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -101,11 +115,11 @@ func main() {
 	// Define API endpoints.
 	r.GET("/cache/:key", func(c *gin.Context) {
 		key := c.Param("key")
-		if value, ok := cache.Get(key); ok {
+		if value, exp ,ok := cache.Get(key); ok {
 			entry := cache.cache[key]
 			c.JSON(200, gin.H{
 				"value":                       value,
-				"expiration":                  entry.expiration,
+				"expiration":                  exp,
 				"original_expiration_seconds": entry.originalExpiration, 
 			})
 		} else {
@@ -130,7 +144,7 @@ func main() {
 
 	r.DELETE("/cache/:key", func(c *gin.Context) {
 		key := c.Param("key")
-		if _, ok := cache.Get(key); !ok {
+		if _, _,ok := cache.Get(key); !ok {
 			c.JSON(404, gin.H{"error": "key not found"})
 			return
 		}
