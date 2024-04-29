@@ -477,7 +477,7 @@ func compareFunc(t *testing.T, a, b any) {
 
 func TestListOfRoutes(t *testing.T) {
 	router := New()
-	router.GET("/favicon.ico", handlerTest1)
+	router.GET("/favicon.png", handlerTest1)
 	router.GET("/", handlerTest1)
 	group := router.Group("/users")
 	{
@@ -492,7 +492,7 @@ func TestListOfRoutes(t *testing.T) {
 	assert.Len(t, list, 7)
 	assertRoutePresent(t, list, RouteInfo{
 		Method:  "GET",
-		Path:    "/favicon.ico",
+		Path:    "/favicon.png",
 		Handler: "^(.*/vendor/)?github.com/gin-gonic/gin.handlerTest1$",
 	})
 	assertRoutePresent(t, list, RouteInfo{

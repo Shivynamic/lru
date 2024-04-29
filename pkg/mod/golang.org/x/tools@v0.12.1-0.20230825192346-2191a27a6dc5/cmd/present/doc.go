@@ -17,9 +17,9 @@ root of your application and create an app.yaml file similar to this:
 	runtime: go111
 
 	handlers:
-	- url: /favicon.ico
-	  static_files: static/favicon.ico
-	  upload: static/favicon.ico
+	- url: /favicon.png
+	  static_files: static/favicon.png
+	  upload: static/favicon.png
 	- url: /static
 	  static_dir: static
 	- url: /.*

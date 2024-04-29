@@ -162,7 +162,7 @@ func (group *RouterGroup) Match(methods []string, relativePath string, handlers 
 }
 
 // StaticFile registers a single route in order to serve a single file of the local filesystem.
-// router.StaticFile("favicon.ico", "./resources/favicon.ico")
+// router.StaticFile("favicon.png", "./resources/favicon.png")
 func (group *RouterGroup) StaticFile(relativePath, filepath string) IRoutes {
 	return group.staticFileHandler(relativePath, func(c *Context) {
 		c.File(filepath)
@@ -170,7 +170,7 @@ func (group *RouterGroup) StaticFile(relativePath, filepath string) IRoutes {
 }
 
 // StaticFileFS works just like `StaticFile` but a custom `http.FileSystem` can be used instead..
-// router.StaticFileFS("favicon.ico", "./resources/favicon.ico", Dir{".", false})
+// router.StaticFileFS("favicon.png", "./resources/favicon.png", Dir{".", false})
 // Gin by default uses: gin.Dir()
 func (group *RouterGroup) StaticFileFS(relativePath, filepath string, fs http.FileSystem) IRoutes {
 	return group.staticFileHandler(relativePath, func(c *Context) {

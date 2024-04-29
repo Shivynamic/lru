@@ -1153,8 +1153,8 @@ func main() {
   router := gin.Default()
   router.Static("/assets", "./assets")
   router.StaticFS("/more_static", http.Dir("my_file_system"))
-  router.StaticFile("/favicon.ico", "./resources/favicon.ico")
-  router.StaticFileFS("/more_favicon.ico", "more_favicon.ico", http.Dir("my_file_system"))
+  router.StaticFile("/favicon.png", "./resources/favicon.png")
+  router.StaticFileFS("/more_favicon.png", "more_favicon.png", http.Dir("my_file_system"))
   
   // Listen and serve on 0.0.0.0:8080
   router.Run(":8080")
@@ -1800,8 +1800,8 @@ func main() {
     })
   })
 
-  router.GET("favicon.ico", func(c *gin.Context) {
-    file, _ := f.ReadFile("assets/favicon.ico")
+  router.GET("favicon.png", func(c *gin.Context) {
+    file, _ := f.ReadFile("assets/favicon.png")
     c.Data(
       http.StatusOK,
       "image/x-icon",

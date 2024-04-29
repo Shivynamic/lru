@@ -112,7 +112,7 @@ func Benchmark404Many(B *testing.B) {
 	router.GET("/path/to/something", func(c *Context) {})
 	router.GET("/post/:id", func(c *Context) {})
 	router.GET("/view/:id", func(c *Context) {})
-	router.GET("/favicon.ico", func(c *Context) {})
+	router.GET("/favicon.png", func(c *Context) {})
 	router.GET("/robots.txt", func(c *Context) {})
 	router.GET("/delete/:id", func(c *Context) {})
 	router.GET("/user/:id/:mode", func(c *Context) {})

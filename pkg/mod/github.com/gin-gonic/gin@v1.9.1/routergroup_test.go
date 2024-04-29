@@ -103,22 +103,22 @@ func TestRouterGroupInvalidStatic(t *testing.T) {
 func TestRouterGroupInvalidStaticFile(t *testing.T) {
 	router := New()
 	assert.Panics(t, func() {
-		router.StaticFile("/path/:param", "favicon.ico")
+		router.StaticFile("/path/:param", "favicon.png")
 	})
 
 	assert.Panics(t, func() {
-		router.StaticFile("/path/*param", "favicon.ico")
+		router.StaticFile("/path/*param", "favicon.png")
 	})
 }
 
 func TestRouterGroupInvalidStaticFileFS(t *testing.T) {
 	router := New()
 	assert.Panics(t, func() {
-		router.StaticFileFS("/path/:param", "favicon.ico", Dir(".", false))
+		router.StaticFileFS("/path/:param", "favicon.png", Dir(".", false))
 	})
 
 	assert.Panics(t, func() {
-		router.StaticFileFS("/path/*param", "favicon.ico", Dir(".", false))
+		router.StaticFileFS("/path/*param", "favicon.png", Dir(".", false))
 	})
 }
 

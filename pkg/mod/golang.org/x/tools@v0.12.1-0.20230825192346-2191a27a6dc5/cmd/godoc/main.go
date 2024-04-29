@@ -53,7 +53,7 @@ const defaultAddr = "localhost:6060" // default webserver address
 
 var (
 	// file system to serve
-	// (with e.g.: zip -r go.zip $GOROOT -i \*.go -i \*.html -i \*.css -i \*.js -i \*.txt -i \*.c -i \*.h -i \*.s -i \*.png -i \*.jpg -i \*.sh -i favicon.ico)
+	// (with e.g.: zip -r go.zip $GOROOT -i \*.go -i \*.html -i \*.css -i \*.js -i \*.txt -i \*.c -i \*.h -i \*.s -i \*.png -i \*.jpg -i \*.sh -i favicon.png)
 	zipfile = flag.String("zip", "", "zip file providing the file system to serve; disabled if empty")
 
 	// file-based index
@@ -190,10 +190,10 @@ func main() {
 	}
 	if *templateDir != "" {
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
-		fs.Bind("/favicon.ico", vfs.OS(*templateDir), "/favicon.ico", vfs.BindReplace)
+		fs.Bind("/favicon.png", vfs.OS(*templateDir), "/favicon.png", vfs.BindReplace)
 	} else {
 		fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
-		fs.Bind("/favicon.ico", mapfs.New(static.Files), "/favicon.ico", vfs.BindReplace)
+		fs.Bind("/favicon.png", mapfs.New(static.Files), "/favicon.png", vfs.BindReplace)
 	}
 
 	// Get the GOMOD value, use it to determine if godoc is being invoked in module mode.

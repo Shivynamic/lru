@@ -35,7 +35,7 @@ var files = []string{
 	"dirlist.html",
 	"error.html",
 	"example.html",
-	"favicon.ico",
+	"favicon.png",
 	"godoc.html",
 	"godocs.js",
 	"gopher/pkg.png",

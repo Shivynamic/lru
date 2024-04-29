@@ -25,7 +25,7 @@ func init() {
 
 // dirHandler serves a directory listing for the requested path, rooted at *contentPath.
 func dirHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/favicon.ico" {
+	if r.URL.Path == "/favicon.png" {
 		http.NotFound(w, r)
 		return
 	}
